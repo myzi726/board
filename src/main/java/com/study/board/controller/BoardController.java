@@ -24,8 +24,10 @@ public class BoardController {
         return "boardwrite";
     }
 
+
     @PostMapping("/board/writepro")
-    public String boardWritePro(Board board, Model model, MultipartFile file) throws Exception{
+    public String boardWritePro(Board board, Model model, MultipartFile file) throws Exception {
+
         boardService.write(board, file);
 
         model.addAttribute("message", "글 작성이 완료되었습니다.");

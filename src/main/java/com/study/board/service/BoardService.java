@@ -2,6 +2,8 @@ package com.study.board.service;
 
 import com.study.board.entity.Board;
 import com.study.board.repository.BoardRepository;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -11,10 +13,10 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor // 파라미터가 채워져있는 기본 생성자를 만들어준다 ~
 public class BoardService {
 
-    @Autowired //DI, 스프링 빈이 알아서 읽어와서 주입해준다
-    private BoardRepository boardRepository;
+    private final BoardRepository boardRepository;
 
     //게시글 작성 처리
     public void write(Board board, MultipartFile file) throws Exception {
@@ -25,7 +27,7 @@ public class BoardService {
 
         String fileName = uuid + "_" + file.getOriginalFilename();
 
-        File saveFile = new File(projectPath, fileName); //projectPath 경로에 fileName값으로 저장
+        File saveFile = new File(projectPath, fileName); //projectPath 경로에 fileName 값으로 저장
 
         file.transferTo(saveFile);
 
