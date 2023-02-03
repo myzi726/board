@@ -8,9 +8,20 @@
 <style>
 
   .layout {
-    width : 500px;
-    margin : 0 auto;
-    margin-top: 40px;
+      width: 500px;
+      height:500px;
+      position: absolute;
+      left:50%;
+      top:50%;
+      margin-left:-250px;
+      margin-top:-250px;
+  }
+
+  a {
+      text-underline: none;
+      text-decoration-line: none;
+      font-family: NanumSquareOTF;
+      color: black;
   }
 
 </style>
@@ -28,13 +39,18 @@
             </thead>
             <tbody>
                 <tr th:each="board : ${list}">
-                    <td th:text="${board.id}"></td>
+                    <td th:text="${board.id}" style="alignment: center"></td>
                     <td>                              <!--localhost:8090/board/view?id=board.id-->
-                        <a  th:text="${board.title}" th:href="@{/board/view(id=${board.id})}"></a>
+                        <a th:text="${board.title}" th:href="@{/board/view(id=${board.id})}"></a>
                     </td>
                 </tr>
             </tbody>
         </table>
+
+        <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+            <a th:if="${page != nowPage}" th:href="@{/board/list(page = ${page - 1})}" th:text="${page}"></a>
+            <strong th:if="${page == nowPage}" th:text="${page}" style="color : red"></strong>
+        </th:block>
 
     </div>
 
