@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-@RequiredArgsConstructor // 파라미터가 채워져있는 기본 생성자를 만들어준다 ~
+@RequiredArgsConstructor // 파라미터가 채워져있는 기본 생성자를 만들어준다
 public class BoardService {
 
     private final BoardRepository boardRepository;
@@ -21,7 +21,7 @@ public class BoardService {
     //게시글 작성 처리
     public void write(Board board, MultipartFile file) throws Exception {
 
-        String projectPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\files";
+        String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/files";
 
         UUID uuid = UUID.randomUUID(); //식별자
 
@@ -30,6 +30,9 @@ public class BoardService {
         File saveFile = new File(projectPath, fileName); //projectPath 경로에 fileName 값으로 저장
 
         file.transferTo(saveFile);
+
+        board.setFilename(fileName);
+        board.setFilepath("/files/" + fileName);
 
         boardRepository.save(board);
     }
